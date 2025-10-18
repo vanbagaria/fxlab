@@ -1,7 +1,7 @@
 # Deploy
 
 - Use an appropriate HTTP server (e.g. gunicorn)
-- Under production, ensure "DEBUG = True" is set in fxlab/settings.py
+- Under production, ensure "DEBUG = True" is set to False in fxlab/settings.py
 - Set up routes on server for the Django 'static' and 'media' directories as '/fxstatic' and '/fxmedia' respectively
 - Set up file upload limits as needed to restrict uploaded image size 
 
