@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filtered Image</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'filterlab/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'filterlab/logo.png' %}" alt="Site Logo" class="logo"> <!-- Adjust the path as necessary -->
+        <h1>Lab</h1>
+    </div>
+    
+    <div class="image-container">
+        <div class="image">
+            <h2>Original Image</h2>
+            <img src="{{ uploaded_file_url }}" alt="Uploaded Image">
+        </div>
+        
+        <div class="image">
+            <h2>Filtered Image</h2>
+            <img src="{{ filtered_image_url }}" alt="Filtered Image">
+        </div>
+    </div>
+
+    <br>
+    <a href="/fxlab{% url 'cleanup_filtered_image' %}">Upload another image</a>
+</body>
+</html>

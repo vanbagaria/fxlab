@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'filterlab/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'filterlab/logo.png' %}" alt="Site Logo" class="logo"> <!-- Adjust the path as necessary -->
+        <h1>Lab</h1>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Image Filters</h2>
+        <label class="custom-file-upload">
+            <input type="file" name="image" id="file-input" required>
+            Choose File
+        </label>
+        <span id="file-name" style="margin-left: 10px;"></span>
+        <img id="image-preview" src="" alt="Image Preview" style="display: none; margin-left: 10px; max-width: 200px; max-height: 100px; border: 1px solid #ccc; border-radius: 5px;">
+        
+        <select name="filter_type" id="filter_type">
+        <option value="none">No Filter</option>
+        <optgroup label="Color">
+            <option value="grayscale">Grayscale</option>
+            <option value="negative">Negative</option>
+        </optgroup>
+        <optgroup label="Blur">
+            <option value="mean_blur">Mean Blur</option>
+            <option value="gaussian_blur">Gaussian Blur</option>
+            <option value="median_blur">Median Blur</option>
+        </optgroup>
+        <optgroup label="Edges">
+            <option value="edges_sobel">Sobel Edge Detection</option>
+            <option value="edges_prewitt">Prewitt Edge Detection</option>
+            <option value="edges_laplacian">Laplacian Edge Detection</option>
+            <option value="edges_canny">Canny Edge Detection</option>
+        </optgroup>
+        <optgroup label="Thresholding">
+            <option value="threshold_binary">Binary Thresholding</option>
+            <option value="threshold_otsu">Otsu's Thresholding</option>
+        </optgroup>
+    </select>
+
+        <button type="submit">Apply Filter</button>
+    </form>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const fileName = file ? file.name : '';
+            document.getElementById('file-name').textContent = fileName;
+    
+            // Preview the image
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('image-preview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById('image-preview').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
